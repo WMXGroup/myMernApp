@@ -77,7 +77,6 @@ class LoginModal extends Component {
    }
 
    render() {
-     console.log(this.state);
       return (
          <div>
            <NavLink onClick={this.toggle} href='#'>
