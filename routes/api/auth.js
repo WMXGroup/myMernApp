@@ -8,6 +8,9 @@ const auth = require('../../middleware/auth');
 // Item Model
 const User = require('../../models/User');
 
+// Get Token
+const jwtSecretKey = process.env.jwtSecret || config.get("jwtSecret");
+
 // @route Get api/auth
 // @desc Authenticate the user
 // @access Public
@@ -32,7 +35,7 @@ router.post('/', (req, res) => {
 
         jwt.sign(
           { id: user.id },
-          config.get('jwtSecret'),
+          jwtSecretKey,
           { expiresIn: 3600 },
           (err, token) => {
             if(err) throw err;

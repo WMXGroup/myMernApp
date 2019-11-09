@@ -4,6 +4,8 @@ const jwt = require('jsonwebtoken');
 function auth(req, res, next){
   const token = req.header('x-auth-token');
 
+  const jwtSecretKey = process.env.jwtSecret || config.get("jwtSecret");
+
   // Check for token
   if(!token) {
     return res.status(401).json({ msg: 'No token, authorization defined' });
@@ -11,7 +13,7 @@ function auth(req, res, next){
 
   try {
     // Verify token
-    const decoded = jwt.verify(token, config.get('jwtSecret'));
+    const decoded = jwt.verify(token, jwtSecretKey);
     // Add user from payload
     req.user = decoded;
     next();
