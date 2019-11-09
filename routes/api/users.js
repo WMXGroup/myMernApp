@@ -7,6 +7,8 @@ const jwt = require('jsonwebtoken');
 // Item Model
 const User = require('../../models/User');
 
+const jwtSecretKey = process.env.jwtSecret || config.get("jwtSecret");
+
 // @route Get api/users
 // @desc Register new user
 // @access Public
@@ -38,7 +40,7 @@ router.post('/', (req, res) => {
         .then(user => {
           jwt.sign(
             { id: user.id },
-            config.get('jwtSecret'),
+            jwtSecretKey,
             { expiresIn: 3600 },
             (err, token) => {
               if(err) throw err;
