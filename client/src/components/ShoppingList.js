@@ -18,9 +18,7 @@ class ShoppingList extends Component {
    };
 
    componentDidMount() {
-      console.log(1);
       this.props.getItems();
-      console.log(2);
    }
 
    onDeleteClick = (id) => {
