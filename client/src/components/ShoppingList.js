@@ -17,8 +17,11 @@ class ShoppingList extends Component {
       isAuthenticated: PropTypes.bool
    };
 
-   componentDidMount() {
-      this.props.getItems();
+   componentDidUpdate(prevProps) {
+      if (this.props.isAuthenticated !== prevProps.isAuthenticated && this.props.isAuthenticated === true){
+         const { email } = this.props.user;
+         this.props.getItems({email});
+      }
    }
 
    onDeleteClick = (id) => {
@@ -55,7 +58,8 @@ class ShoppingList extends Component {
 
 const mapStateToProps = (state) => ({
    item: state.item,
-   isAuthenticated: state.auth.isAuthenticated
+   isAuthenticated: state.auth.isAuthenticated,
+   user: state.auth.user
 });
 
 export default connect(
